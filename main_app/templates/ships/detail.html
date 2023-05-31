@@ -2,21 +2,59 @@
 {% block content %}
 
 <h1>Ship Details</h1>
-    <div class="card">
-        <div class="card-content">
-        <span class="card-title">{{ ship.name }}</span>
-        <p>Created By: {{ ship.created_by }}</p>
-        <p>Class: {{ ship.ship_class }}</p>
-        {% if ship.maximum_speed > 1000 %}
-            <p>Maximum Speed: {{ ship.maximum_speed }}kps | Really fast!</p>
-        {% else %}
-            <p>Maximum Speed: {{ ship.maximum_speed }}kps | Fast!</p>
-        {% endif %}
+
+<div class="row">
+    <div class="col s6">
+        <div class="card">
+            <div class="card-content">
+            <span class="card-title">{{ ship.name }}</span>
+            <p>Created By: {{ ship.created_by }}</p>
+            <p>Class: {{ ship.ship_class }}</p>
+            {% if ship.maximum_speed > 1000 %}
+                <p>Maximum Speed: {{ ship.maximum_speed }}kps | Really fast!</p>
+            {% else %}
+                <p>Maximum Speed: {{ ship.maximum_speed }}kps | Fast!</p>
+            {% endif %}
+            </div>
+            <div class="card-action">
+                <a href="{% url 'ships_update' ship.id %}">Edit</a>
+                <a href="{% url 'ships_delete' ship.id %}">Delete</a>
+            </div>
         </div>
-        <div class="card-action">
-            <a href="{% url 'ships_update' ship.id %}">Edit</a>
-            <a href="{% url 'ships_delete' ship.id %}">Delete</a>
-          </div>
     </div>
+    <div class="col s6">
+        <form action="{% url 'add_task' ship.id %}" method="POST">
+            {% csrf_token %}
+            {{ maintenance_form.as_p }}
+            <input type="submit" class="btn yellow darken-2" value="Complete Task">
+        </form>
+        <table class="striped">
+          <thead>
+            <tr><th>Date</th><th>Task</th></tr>
+          </thead>
+          <tbody>
+            {% for maintenance in ship.maintenance_set.all %}
+              <tr>
+                <td>{{maintenance.date}}</td>
+                <td>{{maintenance.get_chore_display}}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <script>
+        const dateEl = document.getElementById('id_date');
+        M.Datepicker.init(dateEl, {
+            format: 'yyyy-mm-dd',
+            defaultDate: new Date(),
+            setDefaultDate: true,
+            autoClose: true
+        }); 
+
+        const selectEl = document.getElementById('id_chore');
+        M.FormSelect.init(selectEl);
+    </script>
 
 {% endblock %}

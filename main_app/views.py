@@ -1,13 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Ship
-
-# ships = [
-#   {'name': 'Millennium Falcon', 'created_by': 'Corellian Engineering Corporation', 'class': 'Light freighter', 'maximum_speed': 1200},
-#   {'name': 'X Wing', 'created_by': 'Incom Corporation', 'class': 'Starfighter', 'maximum_speed': 1050},
-#   {'name': 'Imperial Star Destroyer', 'created_by': 'Kuat Drive Yards', 'class': 'Star Destroyer', 'maximum_speed':975},
-  
-# ]
+from .forms import MaintenanceForm
 
 # Create your views here.
 
@@ -25,16 +19,25 @@ def ships_index(request):
 
 def ships_detail(request, ship_id):
     ship = Ship.objects.get(id=ship_id)
-    return render(request, 'ships/detail.html', {'ship': ship})
+    maintenance_form = MaintenanceForm()
+    return render(request, 'ships/detail.html', {'ship': ship, 'maintenance_form': maintenance_form})
 
 class ShipCreate(CreateView):
     model = Ship
     fields = '__all__'
 
 class ShipUpdate(UpdateView):
-  model = Ship
-  fields = ['created_by', 'ship_class', 'maximum_speed']
+    model = Ship
+    fields = ['created_by', 'ship_class', 'maximum_speed']
 
 class ShipDelete(DeleteView):
-  model = Ship
-  success_url = '/ships'
+    model = Ship
+    success_url = '/ships'
+
+def add_task(request, ship_id ):
+    form = MaintenanceForm(request.POST)
+    if form.is_valid():
+        new_maintenance = form.save(commit=False)
+        new_maintenance.ship_id = ship_id
+        new_maintenance.save()
+    return redirect('detail', ship_id=ship_id)
