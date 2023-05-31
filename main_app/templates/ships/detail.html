@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Ship Details</h1>
+    <div class="card">
+        <div class="card-content">
+        <span class="card-title">{{ ship.name }}</span>
+        <p>Created By: {{ ship.created_by }}</p>
+        <p>Class: {{ ship.ship_class }}</p>
+        {% if ship.maximum_speed > 1000 %}
+            <p>Maximum Speed: {{ ship.maximum_speed }}kps | Really fast!</p>
+        {% else %}
+            <p>Maximum Speed: {{ ship.maximum_speed }}kps | Fast!</p>
+        {% endif %}
+        </div>
+        <div class="card-action">
+            <a href="{% url 'ships_update' ship.id %}">Edit</a>
+            <a href="{% url 'ships_delete' ship.id %}">Delete</a>
+          </div>
+    </div>
+
+{% endblock %}

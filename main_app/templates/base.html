@@ -1,0 +1,43 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Star Wars Ship Collector</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee+Outline&display=swap" rel="stylesheet">
+  
+</head>
+<body class="bodytag">
+  <header class="navbar-fixed">
+    <nav>
+      <div class="nav-wrapper black">
+        <ul>
+          <li><a href="{% url 'home' %}" class="left brand-logo yellow-text text-darken-2">&nbsp;&nbsp;SW Ship Collector</a></li>
+        </ul>
+        <ul class="right">
+          <li><a href="{% url 'about' %}">About</a></li>
+          <li><a href="{% url 'ships_create' %}">Add a Ship</a></li>
+          <li><a href="{% url 'index' %}">My Ships</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <main class="container">
+    {% block content %}
+    {% endblock %}
+  </main>
+  <footer class="page-footer black">
+    <div class="right">All Rights Reserved, &copy; 2023 Star Wars Ship Collector &nbsp;</div>
+  </footer>
+
+
+</body>
+
+</html>
