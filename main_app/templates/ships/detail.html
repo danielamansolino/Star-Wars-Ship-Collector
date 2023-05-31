@@ -28,6 +28,12 @@
             {{ maintenance_form.as_p }}
             <input type="submit" class="btn yellow darken-2" value="Complete Task">
         </form>
+        <br>
+        {% if ship.task_for_today %}
+            <div class="card-panel yellow-text text-darken-2 black center-aling">{{ship.name}} has completed maintenance for today</div>
+        {% else %}
+        <div class="card-panel yellow-text text-darken-2 black center-aling">{{ship.name}} need maintenance!</div>
+        {% endif %}
         <table class="striped">
           <thead>
             <tr><th>Date</th><th>Task</th></tr>

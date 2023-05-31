@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from datetime import date
 
 CHORES = (
     ('C', 'Cleaning'),
@@ -20,6 +21,9 @@ class Ship(models.Model):
     
     def get_absolute_url(self):
         return reverse('detail', kwargs={'ship_id': self.id})
+    
+    def task_for_today(self):
+        return self.maintenance_set.filter(date=date.today()).count() >= len(CHORES)
     
 class Maintenance(models.Model):
     date = models.DateField('Maintenance Date')
