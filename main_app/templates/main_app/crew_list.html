@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Crew List</h1>
+
+{% for crew in crew_list %}
+  <a href="{% url 'crew_detail' crew.id %}">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">{{ crew.name }}</span>
+            <p>Rank: {{ crew.rank }}</p>
+            <p>Lightsaber Color: {{ crew.color }}</p>
+        </div>
+    </div>
+  </a>
+{% endfor %}
+
+{% endblock %}

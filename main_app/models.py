@@ -10,12 +10,26 @@ CHORES = (
 )
 
 # Create your models here.
+
+class Crew(models.Model):
+    name = models.CharField(max_length=50)
+    rank = models.CharField(max_length=30)
+    color = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.name
+    
+    def get_absolute_url(self):
+        return reverse('crew_detail', kwargs={'pk': self.id})
+
+
 class Ship(models.Model):
     name = models.CharField(max_length=100)
     created_by = models.CharField(max_length=100)
     ship_class = models.TextField(max_length=250)
     maximum_speed = models.IntegerField()
-
+    crew = models.ManyToManyField(Crew)
+    
     def __str__(self):
         return f'{self.name} ({self.id})'
     
