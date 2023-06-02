@@ -29,7 +29,7 @@ class Ship(models.Model):
     ship_class = models.TextField(max_length=250)
     maximum_speed = models.IntegerField()
     crew = models.ManyToManyField(Crew)
-    
+
     def __str__(self):
         return f'{self.name} ({self.id})'
     
@@ -56,3 +56,11 @@ class Maintenance(models.Model):
     
     class Meta:
         ordering = ['-date']
+
+
+class Photo(models.Model):
+    url = models.CharField(max_length=200)
+    ship = models.ForeignKey(Ship, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Photo for ship_id: {self.ship_id} @{self.url}"

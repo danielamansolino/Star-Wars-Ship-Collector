@@ -10,6 +10,7 @@ urlpatterns = [
     path('ships/<int:pk>/update/', views.ShipUpdate.as_view(), name='ships_update'),
     path('ships/<int:pk>/delete/', views.ShipDelete.as_view(), name='ships_delete'),
     path('ships/<int:ship_id>/add_task/', views.add_task, name='add_task'),
+    path('ships/<int:ship_id>/add_photo/', views.add_photo, name='add_photo'),
     path('ships/<int:ship_id>/assoc_crew/<int:crew_id>', views.assoc_crew, name='assoc_crew'),
     path('ships/<int:ship_id>/unassoc_crew/<int:crew_id>', views.unassoc_crew, name='unassoc_crew'),
     path('crew/', views.CrewList.as_view(), name='crew_index'),
