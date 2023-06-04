@@ -18,4 +18,5 @@ urlpatterns = [
     path('crew/create/', views.CrewCreate.as_view(), name='crew_create'),
     path('crew/<int:pk>/update/', views.CrewUpdate.as_view(), name='crew_update'),
     path('crew/<int:pk>/delete/', views.CrewDelete.as_view(), name='crew_delete'),
+    path('accounts/signup/', views.signup, name='signup')
 ]

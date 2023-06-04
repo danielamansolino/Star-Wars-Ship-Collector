@@ -24,10 +24,17 @@
         </ul>
         <ul class="right">
           <li><a href="{% url 'about' %}">About</a></li>
+          {% if user.is_authenticated %}
           <li><a href="{% url 'crew_create' %}">Add Crew</a></li>
           <li><a href="{% url 'crew_index' %}">All Crew</a></li>
           <li><a href="{% url 'ships_create' %}">Add a Ship</a></li>
           <li><a href="{% url 'index' %}">My Ships</a></li>
+          <li><a href="{% url 'logout' %}">Log Out</a></li>
+          <li><a class="yellow-text text-darken-2">User: {{ user.username }}&nbsp;</a></li>
+          {% else %}
+          <li><a href="{% url 'signup' %}">Sign Up</a></li>  
+          <li><a href="{% url 'login' %}">Log In</a></li>
+          {% endif %}
         </ul>
       </div>
     </nav>
